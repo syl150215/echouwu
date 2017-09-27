@@ -26,7 +26,7 @@
              <input type="password" placeholder="输入密码" ref="publicSubmitTwo" class="text_password">
            </div>
            <div class="submit_register">
-             <div class="forgetPas">
+             <div class="forgetPas" @click="forgetPassword">
                <span>忘记密码</span>
              </div>
              <input class="login_button"  type="submit" value="下一步" :class="{active:flag,unactive:!flag}"  @touchstart="publicSubmit()">
@@ -47,11 +47,11 @@
            </div>
            <div class="password_active">
              <span class="icon-lock"></span>
-             <input type="password" @change="messageChange"  placeholder="动态密码" class="text_password">
+             <input type="password" v-model="message" @change="messageChange"  placeholder="动态密码" class="text_password">
              <button class="verification" @touchstart="getPassword">获取短信验证码</button>
            </div>
            <div class="submit_register">
-             <div class="forgetPas">
+             <div class="forgetPas" @click="forgetPassword">
                <span>忘记密码</span>
              </div>
              <input class="login_button" @touchstart="phoneMessageSubmit()"  type="submit" value="下一步" :class="{active:flag, unactive:!flag}"  >
@@ -107,7 +107,7 @@
          <input  type="submit" value="下一步" :class="{active:flag,unactive:!flag}"  @click.prevent="totalSubmit">
        </div>
      </div>
-     <div ></div>
+
    </div>
    <!--这个表示的是用户中心，当用户已经登录后，显示这个页面-->
    <div v-show="username" class="Usercenter">
@@ -140,7 +140,8 @@
        flag:true,
        messageRadom:null,
        username:"",
-       toUrl:""
+       toUrl:"",
+
      }
    },
     computed:{
@@ -226,39 +227,38 @@
      //点击此按钮进行发送短信验证
      getPassword(event){
        //当进入到该事件的时候，将该Button变为disabled的，弄一个定时器。1分钟之后可用
-       this.messageRadom=Math.random()
+
        if(!event.target.disabled){
+         this.messageRadom=Math.random()
          //将发给后台，后台进行存储，后台将该数据在2分钟之后删除，让后台去发请求,将手机号带过去
          let url=`/api/message?phoneNumber=${this.telePhone}&random=${this.messageRadom}`
          axios.get(url)
            .then(response=>{
              let result=response.data
            })
-       }
-       event.target.style.disabled=true
-       if(event.target.disabled){
+         event.target.style.disabled=true
+         setTimeout(()=>{
+           event.target.style.disabled=false
+         },1000*60)
+       }else{
          Toast({
            message: '1分钟只能不能重新发送',
            position: 'middle',
            duration: 1000
          });
-
        }
-       setTimeout(()=>{
-         event.target.style.disabled=false
-       },1000*60)
-
      },
 
      messageChange(){
        //这个是针对短信验证的事件，进行局部更新
        //发送请求
-       console.log(this.message)
+       console.log(this.message)//null
+       console.log(this.messageRadom)//随机数拿到了
        let url=`/api/messageRegister?messageCode=${this.message}&phone=${this.telePhone}&random=${this.messageRadom}`
        axios.get(url)
          .then(response=>{
            let result=response.data
-           console.log(result===false,result)
+           console.log(result===false,result)//true false
            if(result===false){
              Toast({
                message: '短信验证码不正确，请重新输入',
@@ -420,7 +420,10 @@
      removeUsername(){
        sessionStorage.removeItem("username")
        this.username=""
-     }
+     },
+
+
+
    }
  }
 </script>
@@ -695,4 +698,7 @@
       .icon-lock:before {
         content: "\e98f";
       }
+
+
+
 </style>

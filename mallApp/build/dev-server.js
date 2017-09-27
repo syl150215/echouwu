@@ -95,6 +95,17 @@ let registerTotalSchema=new Schema({
 //创建一个model 用来进行操作文档
 let registerTotalModel=mongoose.model("registerTotalModel",registerTotalSchema)
 
+//创建一个操作三级联动的schema及对应的model对象
+let placeSchema=new Schema({
+  code:String,
+  sheng:String,
+  di:String,
+  xian:String,
+  name:String,
+  level:Number
+})
+let placeModel=mongoose.model("cities",placeSchema)
+
 //在服务器端创建一个路由，用来处理对注册的操作，进行增删改查数据库
 let router=express.Router()
 
@@ -361,6 +372,44 @@ router.get("/public_check",function(req,res){
     })
   }
 })
+
+//创建一个路由用来实现三级联动
+router.get("/wheel",function(req,res){
+  let level=req.query.level
+  placeModel.find({level:level},function(error,doc){
+    //现在得到的doc应该是一个数组
+
+    if(doc){
+      res.send(doc)
+    }
+  })
+})
+router.get("/wheel_sheng",function(req,res){
+  let level=req.query.level
+  let sheng=req.query.sheng
+  console.log(sheng,typeof level)//12,2
+  let newLevel=parseInt(level)
+  placeModel.find({level:newLevel,sheng:sheng},function(error,doc){
+
+    if(doc){
+      res.send(doc)
+    }
+  })
+})
+router.get("/wheel_di",function(req,res){
+  let level=req.query.level
+  let sheng=req.query.sheng
+  let di=req.query.di
+  let newLevel=parseInt(level)
+  console.log(newLevel,sheng,di)
+  placeModel.find({level:newLevel,sheng:sheng,di:di},function(error,doc){
+    if(doc){
+      console.log(doc)
+      res.send(doc)
+    }
+  })
+})
+
 
 //启动路由
 app.use("/api",router)

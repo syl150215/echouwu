@@ -1,608 +1,630 @@
 <template>
-  <div class="mainWraper">
-    <div  id="header" >
-      <div class="header_pic">
-        <img src="./img/new_person.png">
-      </div>
-      <div class="header_nav">
-        <div class="header_nav_wrap">
-          <div class="header_local">
-            <a href="">
-              <span>狗狗</span>
-              <span>|</span>
-              <span>重庆站</span>
-            </a>
-          </div>
-          <div class="header_search_wrap">
-            <input class="header_search"
-                   v-model="searchName"
-                   placeholder="  搜索商品和品牌"
-                   type="search">
-            <span></span>
-            <span class="header_dialog"></span>
-          </div>
+  <div>
+    <div v-show="mainShow" class="mainWraper">
+      <div  id="header" >
+        <div class="header_pic">
+          <img src="./img/new_person.png">
         </div>
-      </div>
-      <div class="header_bar" ref="headerScroll">
-        <ul id="headerNavbar">
-          <li>
-            <router-link to="/main">
-              <span>主页</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/staple">
-              <span>主粮</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/medical">
-              <span>医疗保健</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/snakes">
-              <span>零食玩具</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/daily">
-              <span>日用外出</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-          <li >
-            <router-link to="/beautify">
-              <span>美容香波</span>
-              <i class="line_active"></i>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="Firstmain"  ref="Firstmain">
-      <div>
-        <div class="banner">
-          <mt-swipe :auto="4000" class="banner_mt-swipe">
-            <mt-swipe-item class="banner_mt-swipe-item">
-              <img src="./img/aiya.jpg" >
-            </mt-swipe-item>
-            <mt-swipe-item class="banner_mt-swipe-item">
-              <img src="./img/daohang.jpg" >
-            </mt-swipe-item>
-            <mt-swipe-item class="banner_mt-swipe-item">
-              <img src="./img/gouliang.jpg" >
-            </mt-swipe-item>
-            <mt-swipe-item class="banner_mt-swipe-item">
-              <img src="./img/xinpin.png">
-            </mt-swipe-item>
-            <mt-swipe-item class="banner_mt-swipe-item">
-              <img src="./img/zhineng.jpg" >
-            </mt-swipe-item>
-          </mt-swipe>
-        </div>
-        <div class="main_slide">
-          <a href="">
-            <img src="./img/libao.gif" alt="">
-          </a>
-        </div>
-        <div class="main_list">
-          <div class="main_listOne">
-            <div class="item">
-              <a href="">
-                <img src="./img/Echongtuan.png" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a href="">
-                <img src="./img/pinpaitemai.png" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a>
-                <img src="./img/tiyan.png" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a href="">
-                <img src="./img/qingcang.png" alt="">
-              </a>
-            </div>
-          </div>
-          <div class="main_listOne">
-            <div class="item">
-              <a href="">
-                <img src="./img/chaopin.png" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a href="">
-                <img src="./img/xinwang.png" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a href="">
-                <img src="./img/zhoukai.jpg" alt="">
-              </a>
-            </div>
-            <div class="item">
-              <a href="">
-                <img src="./img/more.jpg" alt="">
-              </a>
-            </div>
-          </div>
-
-        </div>
-        <div class="page_line_wraper">
-          <div class="page_line"></div>
-        </div>
-        <div class="main_seckill">
-          <div class="main_seckill_header_wraper">
-            <div class="main_seckill_header">
-              <div class="everyday">
-                <img class="everyday_image" src="./img/suprice.png" alt="">
-              </div>
-              <div class="last">距本场结束</div>
-              <div class="count_down">&nbsp;&nbsp;
-                <span>00</span>
-                <span>:</span>
-                <span>11</span>
-                <span>:</span>
-                <span>29</span>
-              </div>
-              <div class="main_seckill_more">
-                <img src="./img/smallmore.png">
+        <div class="header_nav">
+          <div class="header_nav_wrap">
+            <div class="header_local">
+              <div @touchstart="mainShowChange(false)">
+                <span>{{dog}}</span>
+                <span>|</span>
+                <span>{{place}}</span>
               </div>
             </div>
-          </div>
-          <div class="main_seckill_footer" ref="foodDetails">
-            <ul class="foodList">
-              <li class="item">
-                <a href="">
-                  <img src="./img/changchang.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>15.00</span>
-                  </div>
-                  <p>省¥13.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/jingzhigouliang.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>省¥3.25</span>
-                  </div>
-                  <p>省¥13.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/kafei.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>75.00</span>
-                  </div>
-                  <p>省¥75.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/miaoliang.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>4.45</span>
-                  </div>
-                  <p>省¥4.45</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/naifen.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>119.00</span>
-                  </div>
-                  <p>省¥19.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/qiaokeli.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>169</span>
-                  </div>
-                  <p>省¥39.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/v3.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>1.00</span>
-                  </div>
-                  <p>省¥4.90</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/xiangbo.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>16.90</span>
-                  </div>
-                  <p>省¥8.1</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/weihua.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>18.90</span>
-                  </div>
-                  <p>省¥11.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/naifen.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>68.90</span>
-                  </div>
-                  <p>省¥11.00</p>
-                </a>
-              </li>
-              <li class="item">
-                <a href="">
-                  <img src="./img/qiaokeli.jpg" alt="">
-                  <div class="foodDetail">
-                    <span>¥</span>
-                    <span>15.90</span>
-                  </div>
-                  <p>省¥18.10</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="page_line_wraper">
-          <div class="page_line"></div>
-        </div>
-        <div class="hot">
-          <div class="hot_header">
-            <img src="./img/remenlanmu.jpg" >
-          </div>
-          <div class="hot_footer">
-            <div class="hot_left">
-              <img src="./img/xinwangketang.jpg" >
-            </div>
-            <div class="hot_right">
-              <img src="./img/xinpinzoukan.jpg" >
-              <img src="./img/chaopinshipin.jpg" >
+            <div class="header_search_wrap">
+              <input class="header_search"
+                     v-model="searchName"
+                     placeholder="  搜索商品和品牌"
+                     type="search">
+              <span></span>
+              <span class="header_dialog"></span>
             </div>
           </div>
         </div>
-        <div class="page_line_wraper_two">
-          <div class="page_line_two"></div>
-        </div>
-        <div class="products_show">
-          <div class="product_video">
-            <div class="chaopinMore">
-              <img src="./img/chaoshipin.png" class="picOne">
-              <img src="./img/smallmore.png" class="picMore" >
-            </div>
-            <div class="erha">
-              <img src="./img/erha.jpg" >
-            </div>
-            <div class="product_discribe_wrap">
-             <div class="product_discribe">
-               <div class="product_discribe_one">
-                 神奇饮水除口臭
-               </div>
-               <div class="product_discribe_two">
-                 <span class="eye_icon"></span>
-                 <span>27174</span>
-                 <span>|</span>
-                 <span>01:13</span>
-               </div>
-             </div>
-            </div>
-          </div>
-        </div>
-        <div class="page_line_wraper_three">
-          <div class="page_line_three"></div>
-        </div>
-        <div class="products_show_one">
-          <div class="product_video">
-            <div class="chaopinMore">
-              <img src="./img/tiyanguan.png" class="picOne">
-              <img src="./img/smallmore.png" class="picMore" >
-            </div>
-            <div class="erha">
-              <img src="./img/naodong.jpg" >
-            </div>
-          </div>
-        </div>
-        <div class="products_show_two">
-          <div class="product_video">
-            <div class="chaopinMore">
-              <img src="./img/pinpaimai.png" class="picOne">
-            </div>
-          </div>
-        </div>
-        <div class="half_border"></div>
-        <div class="products_detail" >
-          <ul>
-            <li class="products_detail_item">
-               <div class="advertising_wrap">
-                 <div class="advertising">博纳天纯</div>
-               </div>
-               <img src="./img/bona.jpg" >
-             </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">海洋之星FISH4DOGS</div>
-              </div>
-              <img src="./img/haiyangzhixing.jpg" >
+        <div class="header_bar" ref="headerScroll">
+          <ul id="headerNavbar">
+            <li>
+              <router-link to="/main">
+                <span>主页</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">冠能</div>
-              </div>
-              <img src="./img/guanneng.jpg" >
+            <li>
+              <router-link to="/staple">
+                <span>主粮</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">丝倍亮</div>
-              </div>
-              <img src="./img/sibeiliang.jpg" >
+            <li>
+              <router-link to="/medical">
+                <span>医疗保健</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">荣耀马氏</div>
-              </div>
-              <img src="./img/mashi.jpg" >
+            <li>
+              <router-link to="/snakes">
+                <span>零食玩具</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">优卡</div>
-              </div>
-              <img src="./img/youka.jpg" >
+            <li>
+              <router-link to="/daily">
+                <span>日用外出</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
-            <li class="products_detail_item">
-            <div class="advertising_wrap">
-              <div class="advertising">和世嘉</div>
-            </div>
-            <img src="./img/jiechi.jpg" >
-          </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">爱普士妙鲜包</div>
-              </div>
-              <img src="./img/miaoxianbao.jpg" >
-            </li>
-            <li class="products_detail_item">
-              <div class="advertising_wrap">
-                <div class="advertising">NexGard尼可信</div>
-              </div>
-              <img src="./img/nikexin.jpg" >
+            <li >
+              <router-link to="/beautify">
+                <span>美容香波</span>
+                <i class="line_active"></i>
+              </router-link>
             </li>
           </ul>
         </div>
-        <div class="page_line_wraper_four">
-          <div class="page_line_two"></div>
-        </div>
-        <div class="donation_list">
-          <div class="donation_pic">
-            <div class="picOne" >
-              <img src="./img/tagongyi.jpg"  >
-            </div>
-            <div class="picMore">
-              <img src="./img/liaojie.png"   >
-            </div>
+      </div>
+      <div id="Firstmain"  ref="Firstmain">
+        <div>
+          <div class="banner">
+            <mt-swipe :auto="4000" class="banner_mt-swipe">
+              <mt-swipe-item class="banner_mt-swipe-item">
+                <img src="./img/aiya.jpg" >
+              </mt-swipe-item>
+              <mt-swipe-item class="banner_mt-swipe-item">
+                <img src="./img/daohang.jpg" >
+              </mt-swipe-item>
+              <mt-swipe-item class="banner_mt-swipe-item">
+                <img src="./img/gouliang.jpg" >
+              </mt-swipe-item>
+              <mt-swipe-item class="banner_mt-swipe-item">
+                <img src="./img/xinpin.png">
+              </mt-swipe-item>
+              <mt-swipe-item class="banner_mt-swipe-item">
+                <img src="./img/zhineng.jpg" >
+              </mt-swipe-item>
+            </mt-swipe>
           </div>
-          <div class="donation_background">
-            <img src="./img/gongyibeijing.jpg" >
-            <p class="donationP1">截止今日，TA公益已联合E宠商城和</p>
-            <p class="donationP2">累积捐赠857,272.44</p>
-            <p class="donationP3">已合作7家公益组织，举办参与2场公益活动,助养</p>
-            <p class="donationP4">34位领养人</p>
+          <div class="main_slide">
+            <a href="">
+              <img src="./img/libao.gif" alt="">
+            </a>
           </div>
-          <div class="donation_detail">
-            <div class="donation_title">
-              <img src="./img/zanzhushang.png"  >
+          <div class="main_list">
+            <div class="main_listOne">
+              <div class="item">
+                <a href="">
+                  <img src="./img/Echongtuan.png" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a href="">
+                  <img src="./img/pinpaitemai.png" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a>
+                  <img src="./img/tiyan.png" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a href="">
+                  <img src="./img/qingcang.png" alt="">
+                </a>
+              </div>
             </div>
-            <div class="donation_detail_wrap" ref="donationTitle">
-              <ul class="donation_detail_total">
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/yibeizi.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥186675.85</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/chongE.png" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥167470.93</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/haiyang.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥68115.64</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/mag.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥60853.06</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/leimigao.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥167470.93</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/annamate.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥68115.64</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/gudeng.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥60853.06</span>
-                  </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/lusi.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥52502.36</span>
-                  </div>
+            <div class="main_listOne">
+              <div class="item">
+                <a href="">
+                  <img src="./img/chaopin.png" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a href="">
+                  <img src="./img/xinwang.png" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a href="">
+                  <img src="./img/zhoukai.jpg" alt="">
+                </a>
+              </div>
+              <div class="item">
+                <a href="">
+                  <img src="./img/more.jpg" alt="">
+                </a>
+              </div>
+            </div>
 
+          </div>
+          <div class="page_line_wraper">
+            <div class="page_line"></div>
+          </div>
+          <div class="main_seckill">
+            <div class="main_seckill_header_wraper">
+              <div class="main_seckill_header">
+                <div class="everyday">
+                  <img class="everyday_image" src="./img/suprice.png" alt="">
+                </div>
+                <div class="last">距本场结束</div>
+                <div class="count_down">&nbsp;&nbsp;
+                  <span>00</span>
+                  <span>:</span>
+                  <span>11</span>
+                  <span>:</span>
+                  <span>29</span>
+                </div>
+                <div class="main_seckill_more">
+                  <img src="./img/smallmore.png">
+                </div>
+              </div>
+            </div>
+            <div class="main_seckill_footer" ref="foodDetails">
+              <ul class="foodList">
+                <li class="item">
+                  <a href="">
+                    <img src="./img/changchang.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>15.00</span>
+                    </div>
+                    <p>省¥13.00</p>
+                  </a>
                 </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/heshijia.jpg" >
+                <li class="item">
+                  <a href="">
+                    <img src="./img/jingzhigouliang.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>省¥3.25</span>
+                    </div>
+                    <p>省¥13.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/kafei.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>75.00</span>
+                    </div>
+                    <p>省¥75.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/miaoliang.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>4.45</span>
+                    </div>
+                    <p>省¥4.45</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/naifen.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>119.00</span>
+                    </div>
+                    <p>省¥19.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/qiaokeli.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>169</span>
+                    </div>
+                    <p>省¥39.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/v3.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>1.00</span>
+                    </div>
+                    <p>省¥4.90</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/xiangbo.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>16.90</span>
+                    </div>
+                    <p>省¥8.1</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/weihua.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>18.90</span>
+                    </div>
+                    <p>省¥11.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/naifen.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>68.90</span>
+                    </div>
+                    <p>省¥11.00</p>
+                  </a>
+                </li>
+                <li class="item">
+                  <a href="">
+                    <img src="./img/qiaokeli.jpg" alt="">
+                    <div class="foodDetail">
+                      <span>¥</span>
+                      <span>15.90</span>
+                    </div>
+                    <p>省¥18.10</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="page_line_wraper">
+            <div class="page_line"></div>
+          </div>
+          <div class="hot">
+            <div class="hot_header">
+              <img src="./img/remenlanmu.jpg" >
+            </div>
+            <div class="hot_footer">
+              <div class="hot_left">
+                <img src="./img/xinwangketang.jpg" >
+              </div>
+              <div class="hot_right">
+                <img src="./img/xinpinzoukan.jpg" >
+                <img src="./img/chaopinshipin.jpg" >
+              </div>
+            </div>
+          </div>
+          <div class="page_line_wraper_two">
+            <div class="page_line_two"></div>
+          </div>
+          <div class="products_show">
+            <div class="product_video">
+              <div class="chaopinMore">
+                <img src="./img/chaoshipin.png" class="picOne">
+                <img src="./img/smallmore.png" class="picMore" >
+              </div>
+              <div class="erha">
+                <img src="./img/erha.jpg" >
+              </div>
+              <div class="product_discribe_wrap">
+                <div class="product_discribe">
+                  <div class="product_discribe_one">
+                    神奇饮水除口臭
                   </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥40371.84</span>
+                  <div class="product_discribe_two">
+                    <span class="eye_icon"></span>
+                    <span>27174</span>
+                    <span>|</span>
+                    <span>01:13</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="page_line_wraper_three">
+            <div class="page_line_three"></div>
+          </div>
+          <div class="products_show_one">
+            <div class="product_video">
+              <div class="chaopinMore">
+                <img src="./img/tiyanguan.png" class="picOne">
+                <img src="./img/smallmore.png" class="picMore" >
+              </div>
+              <div class="erha">
+                <img src="./img/naodong.jpg" >
+              </div>
+            </div>
+          </div>
+          <div class="products_show_two">
+            <div class="product_video">
+              <div class="chaopinMore">
+                <img src="./img/pinpaimai.png" class="picOne">
+              </div>
+            </div>
+          </div>
+          <div class="half_border"></div>
+          <div class="products_detail" >
+            <ul>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">博纳天纯</div>
+                </div>
+                <img src="./img/bona.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">海洋之星FISH4DOGS</div>
+                </div>
+                <img src="./img/haiyangzhixing.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">冠能</div>
+                </div>
+                <img src="./img/guanneng.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">丝倍亮</div>
+                </div>
+                <img src="./img/sibeiliang.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">荣耀马氏</div>
+                </div>
+                <img src="./img/mashi.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">优卡</div>
+                </div>
+                <img src="./img/youka.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">和世嘉</div>
+                </div>
+                <img src="./img/jiechi.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">爱普士妙鲜包</div>
+                </div>
+                <img src="./img/miaoxianbao.jpg" >
+              </li>
+              <li class="products_detail_item">
+                <div class="advertising_wrap">
+                  <div class="advertising">NexGard尼可信</div>
+                </div>
+                <img src="./img/nikexin.jpg" >
+              </li>
+            </ul>
+          </div>
+          <div class="page_line_wraper_four">
+            <div class="page_line_two"></div>
+          </div>
+          <div class="donation_list">
+            <div class="donation_pic">
+              <div class="picOne" >
+                <img src="./img/tagongyi.jpg"  >
+              </div>
+              <div class="picMore">
+                <img src="./img/liaojie.png"   >
+              </div>
+            </div>
+            <div class="donation_background">
+              <img src="./img/gongyibeijing.jpg" >
+              <p class="donationP1">截止今日，TA公益已联合E宠商城和</p>
+              <p class="donationP2">累积捐赠857,272.44</p>
+              <p class="donationP3">已合作7家公益组织，举办参与2场公益活动,助养</p>
+              <p class="donationP4">34位领养人</p>
+            </div>
+            <div class="donation_detail">
+              <div class="donation_title">
+                <img src="./img/zanzhushang.png"  >
+              </div>
+              <div class="donation_detail_wrap" ref="donationTitle">
+                <ul class="donation_detail_total">
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/yibeizi.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥186675.85</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/chongE.png" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥167470.93</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/haiyang.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥68115.64</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/mag.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥60853.06</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/leimigao.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥167470.93</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/annamate.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥68115.64</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/gudeng.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥60853.06</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/lusi.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥52502.36</span>
+                    </div>
+
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/heshijia.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥40371.84</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/weisikang.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥40371.84</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/plus.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥35332.55</span>
+                    </div>
+                  </li>
+                  <li class="donation_detail_item">
+                    <div class="donation_image">
+                      <img src="./img/xinkang.jpg" >
+                    </div>
+                    <div class="donation_amount">
+                      <span >已捐助¥33901.21</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="evaluate">
+            <div class="picOne" >
+              <img src="./img/koubei.png"  >
+            </div>
+            <div class="evaluate_wrap">
+              <ul class="evaluate_wrap_small">
+                <li class="evaluate_wrap_item">
+                  <div class="evaluate_pic">
+                    <img src="./img/xiaomao.jpg" >
+                  </div>
+                  <div class="evaluate_discribe">
+                    <span class="evaluate_discribe_one">红*****ω</span>
+                    <span class="evaluate_discribe_two">中华田园猫</span>
+                  </div>
+                  <div class="evaluate_long">
+                    <p>
+                      包装完美，没有破漏的情况存在，虽说是跨境运输，但是物流的速度还是比想象中快，最主要的还是正品保证，买得放心吃的安心
+                    </p>
                   </div>
                 </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/weisikang.jpg" >
+                <li class="evaluate_wrap_item">
+                  <div class="evaluate_pic">
+                    <img src="./img/ermao.jpg" >
                   </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥40371.84</span>
+                  <div class="evaluate_discribe">
+                    <span class="evaluate_discribe_one">自***人</span>
+                    <span class="evaluate_discribe_two">萨摩耶</span>
                   </div>
-                </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/plus.jpg" >
-                  </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥35332.55</span>
+                  <div class="evaluate_long">
+                    <p>
+                      物流挺给力，到货很快。包装也十分的棒，外面还有塑料薄膜包裹，非常好，一看就让人觉得质量绝对一级棒。客服真心不错，很耐心的给你讲解！就冲这个大大的好评，以后狗狗的东西直接来这里！ 再次祝e宠生意兴隆。
+                    </p>
                   </div>
                 </li>
-                <li class="donation_detail_item">
-                  <div class="donation_image">
-                    <img src="./img/xinkang.jpg" >
+                <li class="evaluate_wrap_item">
+                  <div class="evaluate_pic">
+                    <img src="./img/ergou.jpg" >
                   </div>
-                  <div class="donation_amount">
-                    <span >已捐助¥33901.21</span>
+                  <div class="evaluate_discribe">
+                    <span class="evaluate_discribe_one">殳**白</span>
+                    <span class="evaluate_discribe_two">哈士奇</span>
+                  </div>
+                  <div class="evaluate_long">
+                    <p>
+                      不知不觉中这已经是第16次在E宠购物了，其实我家二妹才来了三个多月。二妹吃的，用的，玩的，包括生病的药全部是在E宠买的，看中的就是正品保障和一流的物流。印象最深的是618活动的时候因为订单量太大，有一个单子没有按时送到，我联系了客服，客服保证第二天送到，结果第二天晚上十一点多的时候E宠的工作人员开着自家的小轿车把货送到了我家楼下，兑现了承诺。希望E宠以后越来越好，继续做广大铲屎官的坚实后盾。
+                    </p>
+                  </div>
+                </li>
+                <li class="evaluate_wrap_item">
+                  <div class="evaluate_pic">
+                    <img src="./img/choumao.jpg" >
+                  </div>
+                  <div class="evaluate_discribe">
+                    <span class="evaluate_discribe_one">奥****家</span>
+                    <span class="evaluate_discribe_two">中华田园猫</span>
+                  </div>
+                  <div class="evaluate_long">
+                    <p>
+                      客服和物流都是特别的满意，以前曾经在天猫国际买，但是物流速度太慢了。e宠的速度快不说，东西绝对是真货，最重要的是，每次的减震避震都做的特别完美。开了水族站之后，以后家里宠物的东西全都e宠买了。
+                    </p>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-        <div class="evaluate">
-          <div class="picOne" >
-              <img src="./img/koubei.png"  >
+          <div class="page_line_wraper_two">
+            <div class="page_line_two"></div>
           </div>
-          <div class="evaluate_wrap">
-            <ul class="evaluate_wrap_small">
-              <li class="evaluate_wrap_item">
-                <div class="evaluate_pic">
-                  <img src="./img/xiaomao.jpg" >
-                </div>
-                <div class="evaluate_discribe">
-                  <span class="evaluate_discribe_one">红*****ω</span>
-                  <span class="evaluate_discribe_two">中华田园猫</span>
-                </div>
-                <div class="evaluate_long">
-                  <p>
-                    包装完美，没有破漏的情况存在，虽说是跨境运输，但是物流的速度还是比想象中快，最主要的还是正品保证，买得放心吃的安心
-                  </p>
-                </div>
-              </li>
-              <li class="evaluate_wrap_item">
-                <div class="evaluate_pic">
-                  <img src="./img/ermao.jpg" >
-                </div>
-                <div class="evaluate_discribe">
-                  <span class="evaluate_discribe_one">自***人</span>
-                  <span class="evaluate_discribe_two">萨摩耶</span>
-                </div>
-                <div class="evaluate_long">
-                  <p>
-                    物流挺给力，到货很快。包装也十分的棒，外面还有塑料薄膜包裹，非常好，一看就让人觉得质量绝对一级棒。客服真心不错，很耐心的给你讲解！就冲这个大大的好评，以后狗狗的东西直接来这里！ 再次祝e宠生意兴隆。
-                  </p>
-                </div>
-              </li>
-              <li class="evaluate_wrap_item">
-                <div class="evaluate_pic">
-                  <img src="./img/ergou.jpg" >
-                </div>
-                <div class="evaluate_discribe">
-                  <span class="evaluate_discribe_one">殳**白</span>
-                  <span class="evaluate_discribe_two">哈士奇</span>
-                </div>
-                <div class="evaluate_long">
-                  <p>
-                    不知不觉中这已经是第16次在E宠购物了，其实我家二妹才来了三个多月。二妹吃的，用的，玩的，包括生病的药全部是在E宠买的，看中的就是正品保障和一流的物流。印象最深的是618活动的时候因为订单量太大，有一个单子没有按时送到，我联系了客服，客服保证第二天送到，结果第二天晚上十一点多的时候E宠的工作人员开着自家的小轿车把货送到了我家楼下，兑现了承诺。希望E宠以后越来越好，继续做广大铲屎官的坚实后盾。
-                  </p>
-                </div>
-              </li>
-              <li class="evaluate_wrap_item">
-                <div class="evaluate_pic">
-                  <img src="./img/choumao.jpg" >
-                </div>
-                <div class="evaluate_discribe">
-                  <span class="evaluate_discribe_one">奥****家</span>
-                  <span class="evaluate_discribe_two">中华田园猫</span>
-                </div>
-                <div class="evaluate_long">
-                  <p>
-                    客服和物流都是特别的满意，以前曾经在天猫国际买，但是物流速度太慢了。e宠的速度快不说，东西绝对是真货，最重要的是，每次的减震避震都做的特别完美。开了水族站之后，以后家里宠物的东西全都e宠买了。
-                  </p>
-                </div>
-              </li>
-            </ul>
+          <div class="footer">
+            <div class="footer_first">
+              <span class="active">触屏版</span>
+              <span>手机客户端</span>
+              <span>关于我们</span>
+              <span>联系我们</span>
+            </div>
+            <div class="footer_second">
+              © wap.epet.com 版权：重庆易宠科技有限公司
+            </div>
           </div>
         </div>
-        <div class="page_line_wraper_two">
-          <div class="page_line_two"></div>
-        </div>
-        <div class="footer">
-          <div class="footer_first">
-            <span class="active">触屏版</span>
-            <span>手机客户端</span>
-            <span>关于我们</span>
-            <span>联系我们</span>
-          </div>
-          <div class="footer_second">
-            © wap.epet.com 版权：重庆易宠科技有限公司
-          </div>
-        </div>
+      </div>
+    </div>
+    <div v-show="shadeShow" class="shade">
+      <div class="shadeTitle" @touchstart="mainShowChange(true)">
+        <span class="icon-undo2"></span>
+        <div>选择收货地区</div>
+        <span class="icon-qrcode"></span>
+      </div>
+      <div class="dogChange">
+        <button @touchstart.prevent="dogChange">猫猫站</button>
+        <button @touchstart.prevent="dogChange">狗狗站</button>
+        <button @touchstart.prevent="dogChange">水族站</button>
+      </div>
+      <div class="placeNow">
+        当前默认地址:  {{placeNow}}
+      </div>
+      <div class="choosePlace">
+        <ul>
+          <li @touchstart="placeChange(place.level,place.sheng,place.di,$event)" :key="index" class="choosePlaceItem" v-for="(place,index) in placeList">{{place.name}}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -611,13 +633,21 @@
   import Vue from "vue"
   import {Search,Swipe, SwipeItem} from "mint-ui"
   import BScroll from 'better-scroll'
+  import axios from "axios"
   Vue.component(Search.name, Search,Swipe.name, Swipe)
   Vue.component(SwipeItem.name, SwipeItem)
   export default {
     data(){
       return {
         searchName:"",
-        ceshi:50
+        ceshi:50,
+        mainShow:true,
+        shadeShow:false,
+        dog:"狗狗",
+        place:"重庆",
+        placeNow:"",
+        placeList:[],
+        number:0
       }
     },
     mounted(){
@@ -658,6 +688,81 @@
 
       })
     },
+    methods:{
+      mainShowChange(boolean){
+        this.mainShow=boolean
+        this.shadeShow=!boolean
+        if(!boolean){
+          console.log("已经进到发送的请求中")
+          //表示显示遮罩层，先去发送请求，将第一级城市进行显示
+          let level=1
+          let url=`/api/wheel?level=${level}`
+          axios.get(url)
+            .then(response=>{
+             let result=response.data
+              //获取得到的result为一个json数组
+              //对原数组进行处理
+              this.placeList=result
+            })
+        }
+      },
+      dogChange(event){
+        //当点击这个时候，进行切换，向后台发送请求，请求到对应狗狗站，猫猫站的相关数据，在这没有详做
+        this.dog=event.target.textContent
+        //同时切换状态,显示主页面
+        this.mainShow=true
+        this.shadeShow=false
+
+      },
+      placeChange(level,sheng,di,event){
+        //这个可能会有两种情况，第一种是进入第二级城市，第二种是进入第三级城市
+
+        //判断一下是
+        if(this.number===3){
+          this.placeNow=""
+          this.number=0
+       }
+        console.log("已经进入第二级请求")
+        console.log(level)
+        //当当前level为1时，表示需要去找对应的市
+        console.log(level,sheng,di)//1 "13" "00"
+        if(level==1){
+          let newLevel=level+1
+          let url=`/api/wheel_sheng?sheng=${sheng}&level=${newLevel}`
+          axios.get(url)
+            .then(response=>{
+              let result=response.data
+              //获取得到的result为一个json数组
+              //对原数组进行处理
+              this.place=event.target.textContent
+              this.placeList=result
+              this.placeNow+=event.target.textContent
+              this.number=this.number+1
+            })
+          //当level为2时，表示需要找对应的县
+        }else if(level==2){
+          console.log(level,sheng,di)
+          let newLevel=level+1
+          let url=`/api/wheel_di?di=${di}&level=${newLevel}&sheng=${sheng}`
+          axios.get(url)
+            .then(response=>{
+              let result=response.data
+              //获取得到的result为一个json数组
+              //对原数组进行处理
+              this.placeList=result
+              this.placeNow+=event.target.textContent
+              this.number=this.number+1
+            })
+        }else{
+          //这个是当级别为3时，就直接跳转主页面
+          this.placeNow+=event.target.textContent
+          this.number=this.number+1
+          this.mainShow=true
+          this.shadeShow=false
+        }
+      }
+
+    }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -1110,8 +1215,60 @@
 
 
 
+  .shade
+    .shadeTitle
+      height 40px
+      box-sizing border-box
+      padding 10px 10px
+      text-align center
+      position relative
+      .icon-undo2
+        position absolute
+        top 10px
+        left 0
+      .icon-undo2:before {
+        content: "\e967";
+      }
+      .icon-qrcode
+        position absolute
+        top 10px
+        right 0
 
-
-
+      .icon-qrcode:before {
+        content: "\e938";
+      }
+    .dogChange
+      height 40px
+      background #F5F5F5
+      width 100%
+      box-sizing border-box
+      padding 5px 0
+      display flex
+      button
+        display block
+        box-sizing border-box
+        margin 0 2%
+        flex 1
+        border-radius 10px
+        background #B9B9B9
+        font-size 13px
+        color #666
+        outline none
+    .placeNow
+      height 40px
+      box-sizing border-box
+      padding 5px
+      font-size 14px
+      background #FFE6D9
+      line-height 26px
+    .choosePlace
+      width 100%
+      height 100%
+      .choosePlaceItem
+        height 20px
+        width 100%
+        font-size 15px
+        box-sizing border-box
+        padding 5px 0
 
 </style>
